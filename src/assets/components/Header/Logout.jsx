@@ -12,7 +12,7 @@ function Logout() {
     }
 
     return (
-    <button onClick={logoutHandler}>
+    <button onClick={logoutHandler} className='text-red-500'>
         Logout
     </button>
   )
