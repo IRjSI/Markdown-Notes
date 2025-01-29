@@ -1,15 +1,27 @@
-import { useState } from 'react'
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './assets/components/Header/Header';
-import Home from './assets/components/Home';
-import Sidebar from './assets/components/Sidebar';
-import Login from './assets/components/Login';
 import { Outlet } from 'react-router-dom';
-import Signup from './assets/components/Signup';
+import authService from './appwrite/auth';
+import { login, logout } from './store/authSlice'
+import { useDispatch } from 'react-redux';
 
 function App() {
+  const [loading,setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    authService.getCurrentUser()
+    .then((userData) => {
+      if (userData) {
+        dispatch(login({userData})) // if user found
+      } else {
+        dispatch(logout()) // if not found
+      }
+    })
+    .finally(setLoading(false))
+  }, [])
+
   return (
     <div className='flex flex-col min-h-screen bg-gray-900 text-gray-100'>
       <Header />

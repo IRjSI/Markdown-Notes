@@ -9,7 +9,7 @@ import appwriteService from '../../appwrite/config'
 import { ID } from 'appwrite';
 import { useSelector } from 'react-redux';
 import Sidebar from './Sidebar';
-import Header from './Header/Header';
+import Login from './Login';
 
 function Home() {
   
@@ -25,8 +25,7 @@ function Home() {
     const allNotes = async () => {
       try {
         const response = await appwriteService.getNotes();
-        // console.log(response.documents);
-        
+
         if (response) {
           setNotes(response.documents);
         }
@@ -41,25 +40,27 @@ function Home() {
   const addNote = async (data) => {
     try {
       data.slug = String(ID.unique());
-      await appwriteService.createNote({ ...data });
-      setNotes((prevNotes) => [...prevNotes, data])
+      const response = await appwriteService.createNote({ ...data,userID:userData.$id });
+      if (response) setNotes((prevNotes) => [...prevNotes, response])
     } catch (error) {
       console.log("addNote::error::",error);
     }
   }
 
+  const isAuthor = notes && userData ? notes.userID === userData.$id : false;
+
   return status ? (
     <div className='flex'>
 
     <div className='m-4 border-e-2 border-[#1f2937]'>
-        <div className=''>
+        <div className='mb-4'>
           <Link to={`/`}>
             All Notes
           </Link>
         {notes.map((note) => (
-            <div key={note.$id} className='p-2 w-48'>
+            isAuthor ? (<div key={note.$id} className='p-2 w-48'>
               <Sidebar {...note} />
-            </div>
+            </div>) : null
         ))}
         <div className='p-2'>
           <Link to={`/`} className={`text-[#c3cbd9] p-4 my-4 hover:rounded-md hover:cursor-pointer hover:bg-[#1f2937] w-full `}>
@@ -111,7 +112,7 @@ function Home() {
   </div>
   </div>
 
-  ) : <div className='text-3xl text-center w-full'>Login...</div>
+  ) : <div className=''><Login /></div>
 }
 
 export default Home
