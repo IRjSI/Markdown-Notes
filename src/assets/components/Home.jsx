@@ -25,7 +25,6 @@ function Home() {
     const allNotes = async () => {
       try {
         const response = await appwriteService.getNotes();
-
         if (response) {
           setNotes(response.documents);
         }
@@ -40,7 +39,7 @@ function Home() {
   const addNote = async (data) => {
     try {
       data.slug = String(ID.unique());
-      const response = await appwriteService.createNote({ ...data,userID:userData.$id });
+      const response = await appwriteService.createNote({ ...data, userID:userData.$id });
       if (response) setNotes((prevNotes) => [...prevNotes, response])
     } catch (error) {
       console.log("addNote::error::",error);
@@ -57,11 +56,13 @@ function Home() {
           <Link to={`/`}>
             All Notes
           </Link>
-        {notes.map((note) => (
-            isAuthor ? (<div key={note.$id} className='p-2 w-48'>
-              <Sidebar {...note} />
-            </div>) : null
-        ))}
+          {notes.map((note) =>
+            note.userID === userData.$id ? (
+              <div key={note.$id} className='p-2 w-48'>
+                <Sidebar {...note} />
+              </div>
+            ) : null
+          )}
         <div className='p-2'>
           <Link to={`/`} className={`text-[#c3cbd9] p-4 my-4 hover:rounded-md hover:cursor-pointer hover:bg-[#1f2937] w-full `}>
             +New Note

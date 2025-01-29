@@ -7,9 +7,11 @@ import "github-markdown-css";
 import './markdown.css';
 import { useForm } from "react-hook-form";
 import Sidebar from "./Sidebar";
+import { useSelector } from "react-redux";
 
 const EditNote = () => {
     const [note, setNote] = useState(null);
+    const { status, userData } = useSelector((state) => state.auth);
     const [notes, setNotes] = useState([]);
     const { slug } = useParams();
     const navigate = useNavigate();
@@ -90,9 +92,9 @@ const EditNote = () => {
               All Notes
             </Link>
             {notes.map((note) => (
-                <div key={note.$id} className='p-2 w-48'>
+              note.userID === userData.$id ? <div key={note.$id} className='p-2 w-48'>
                 <Sidebar {...note} />
-                </div>
+              </div> : null
             ))}
             <div className='p-2'>
               <Link to={`/`} className={`text-[#c3cbd9] p-4 my-4 hover:rounded-md hover:cursor-pointer hover:bg-[#1f2937] w-full `}>
