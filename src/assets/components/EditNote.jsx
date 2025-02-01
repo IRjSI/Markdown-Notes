@@ -15,20 +15,19 @@ const EditNote = () => {
     const [notes, setNotes] = useState([]);
     const { slug } = useParams();
     const navigate = useNavigate();
-    const { register, handleSubmit, watch, reset } = useForm({
+    const { register, handleSubmit, watch, setValue } = useForm({
         defaultValues: {
             title: '',
             content: '',
         },
     });
-    let content = watch('content','');
-    let title = watch('title','');
+    let content = watch('content',note?.content || '');
+    let title = watch('title',note?.title || '');
 
     useEffect(() => {
         const allNotes = async () => {
           try {
             const response = await appwriteService.getNotes();
-            // console.log(response.documents);
             
             if (response) {
               setNotes(response.documents);
@@ -47,14 +46,9 @@ const EditNote = () => {
         if (slug) {
             appwriteService.getNote(slug).then((note) => {
                 if (note) {
-                    content = watch('content',note.content);
-                    title = watch('title',note.title);
-                    reset({
-                        title: note.title,
-                        content: note.content,
-                    })
                     setNote(note);
-                    console.log(note);
+                    setValue('title', note.title);
+                    setValue('content', note.content);
                 }
                 else navigate("/");
             });
@@ -63,8 +57,6 @@ const EditNote = () => {
 
     const editNote = async (data) => {
         try {
-          console.log(data);
-          
           await appwriteService.updateNote(slug,{...data});
           setNotes((prevNotes) => (prevNotes.map((note) => (
             note.slug === data.slug ? { ...note, ...data } : note
@@ -83,7 +75,7 @@ const EditNote = () => {
       }
     }
 
-    return note ? (
+    return (
         <div className='flex'>
 
         <div className='m-4 border-e-2 border-[#1f2937]'>
@@ -93,6 +85,8 @@ const EditNote = () => {
             </Link>
             {notes.map((note) => (
               note.userID === userData.$id ? <div key={note.$id} className='p-2 w-48'>
+                {console.log(note.userID)}
+                
                 <Sidebar {...note} />
               </div> : null
             ))}
@@ -151,7 +145,7 @@ const EditNote = () => {
               </div>
         </div>
     </div>
-    ) : null;
+    );
 }
 
 export default EditNote

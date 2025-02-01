@@ -45,9 +45,7 @@ function Home() {
       console.log("addNote::error::",error);
     }
   }
-
-  const isAuthor = notes && userData ? notes.userID === userData.$id : false;
-
+  
   return status ? (
     <div className='flex'>
 
