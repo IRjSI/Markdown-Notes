@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import authService from '../../../appwrite/auth';
-import { logout as authLogout } from '../../../store/authSlice';
+import authService from '../../appwrite/auth';
+import { logout as authLogout } from '../../store/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 function Logout() {

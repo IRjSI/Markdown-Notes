@@ -5,7 +5,7 @@ import remarkGfm from "remark-gfm";
 import "github-markdown-css";
 import './markdown.css';
 import { useForm } from 'react-hook-form';
-import appwriteService from '../../appwrite/config'
+import appwriteService from '../appwrite/config'
 import { ID } from 'appwrite';
 import { useSelector } from 'react-redux';
 import Sidebar from './Sidebar';
@@ -14,41 +14,58 @@ import Login from './Login';
 function Home() {
   
   const { status, userData } = useSelector((state) => state.auth);
+  const id = userData?.userData?.$id;
+  
   const { register, handleSubmit, watch } = useForm();
   
   const content = watch('content','');
   const title = watch('title','');
 
   const [notes,setNotes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const allNotes = async () => {
       try {
         const response = await appwriteService.getNotes([]);
-        console.log(status);
+        // console.log(status);
         
         if (response) {
           setNotes(response.documents);
         }
       } catch (error) {
         console.error("Failed to fetch notes:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
     
-    allNotes();
-  }, [userData])
+    if (status) allNotes();
+  }, [status])
+
+  if (!status) {
+    return <Login />; // Redirect to login if not authenticated
+  }
+  
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+    );
+  }
   
   const addNote = async (data) => {
     try {
       data.slug = String(ID.unique());
-      const response = await appwriteService.createNote({ ...data, userID:userData.$id });
+      const response = await appwriteService.createNote({ ...data, userID:id });
       if (response) setNotes((prevNotes) => [...prevNotes, response])
     } catch (error) {
       console.log("addNote::error::",error);
     }
   }
   
-  return status ? (
+  return (
     <div className='flex'>
 
     <div className='m-4 border-e-2 border-[#1f2937]'>
@@ -57,7 +74,7 @@ function Home() {
             All Notes
           </Link>
           {notes.map((note) =>
-            note.userID === userData.$id ? (
+            note.userID === id ? (
               <div key={note.$id} className='p-2 w-48'>
                 <Sidebar {...note} />
               </div>
@@ -113,7 +130,7 @@ function Home() {
   </div>
   </div>
 
-  ) : <div className=''><Login /></div>
+  )
 }
 
 export default Home

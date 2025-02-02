@@ -35,7 +35,7 @@ export class Service{
     async updateNote(slug, {title, content, featuredImage}){
         try {
             return await this.databases.updateDocument(
-                conf.appwriteBucketID,
+                conf.appwriteDatabaseID,
                 conf.appwriteCollectionID,
                 slug,
                 {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import appwriteService from "../../appwrite/config";
+import appwriteService from "../appwrite/config";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "github-markdown-css";
@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 
 const EditNote = () => {
     const [note, setNote] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const { status, userData } = useSelector((state) => state.auth);
     const [notes, setNotes] = useState([]);
     const { slug } = useParams();
@@ -34,15 +35,15 @@ const EditNote = () => {
             }
           } catch (error) {
             console.error("Failed to fetch notes:", error);
+          } finally {
+            setIsLoading(false);
           }
         }
     
-        allNotes();
-    }, [])
+        if (status) allNotes();
+    }, [status])
 
     useEffect(() => {
-        console.log(slug);
-        
         if (slug) {
             appwriteService.getNote(slug).then((note) => {
                 if (note) {
@@ -54,6 +55,18 @@ const EditNote = () => {
             });
         } else navigate("/");
     }, [slug, navigate]);
+
+    if (!status) {
+      return <Login />; // Redirect to login if not authenticated
+    }
+    
+    if (isLoading) {
+      return (
+        <div className="flex justify-center items-center h-screen">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-500"></div>
+        </div>
+      );
+    }
 
     const editNote = async (data) => {
         try {
@@ -84,9 +97,7 @@ const EditNote = () => {
               All Notes
             </Link>
             {notes.map((note) => (
-              note.userID === userData.$id ? <div key={note.$id} className='p-2 w-48'>
-                {console.log(note.userID)}
-                
+              note.userID === userData?.userData?.$id ? <div key={note.$id} className='p-2 w-48'>
                 <Sidebar {...note} />
               </div> : null
             ))}
@@ -137,11 +148,11 @@ const EditNote = () => {
                   <button className="bg-violet-500 hover:bg-violet-600 text-black font-semibold px-6 py-2 rounded-md border-2 border-black shadow-md transition-all hover:transition-all">
                     Edit Note
                   </button>
+                <button type="button" onClick={deleteNote} className="bg-red-600 hover:bg-red-700 text-black font-semibold px-6 py-2 rounded-md border-2 border-black shadow-md transition-all hover:transition-all">
+                    Delete Note
+                </button>
                 </div>
                 </form>
-                <button onClick={deleteNote} className="bg-violet-500 hover:bg-violet-600 text-black font-semibold px-6 py-2 rounded-md border-2 border-black shadow-md transition-all hover:transition-all">
-                    Delete Note
-                  </button>
               </div>
         </div>
     </div>
