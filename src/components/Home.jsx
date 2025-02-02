@@ -24,7 +24,9 @@ function Home() {
   useEffect(() => {
     const allNotes = async () => {
       try {
-        const response = await appwriteService.getNotes();
+        const response = await appwriteService.getNotes([]);
+        console.log(status);
+        
         if (response) {
           setNotes(response.documents);
         }
@@ -32,10 +34,10 @@ function Home() {
         console.error("Failed to fetch notes:", error);
       }
     }
-
+    
     allNotes();
-  }, [])
-
+  }, [userData])
+  
   const addNote = async (data) => {
     try {
       data.slug = String(ID.unique());
