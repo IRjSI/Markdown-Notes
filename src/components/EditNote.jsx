@@ -63,7 +63,7 @@ const EditNote = () => {
     if (isLoading) {
       return (
         <div className="flex justify-center items-center h-screen">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#fafafa]"></div>
         </div>
       );
     }
@@ -91,7 +91,7 @@ const EditNote = () => {
     return (
         <div className='flex'>
 
-        <div className='m-4 border-e-2 border-[#1f2937]'>
+        <div className='m-4 border-e-[1.5px] border-[#27272a]'>
             <div className=''>
             <Link to={`/`}>
               All Notes
@@ -102,42 +102,42 @@ const EditNote = () => {
               </div> : null
             ))}
             <div className='p-2'>
-              <Link to={`/`} className={`text-[#c3cbd9] p-4 my-4 hover:rounded-md hover:cursor-pointer hover:bg-[#1f2937] w-full `}>
+              <Link to={`/`} className={`text-[#bbbbbb] p-4 my-4 hover:rounded-md hover:cursor-pointer hover:bg-[#27272a] w-full `}>
                 +New Note
               </Link>
             </div>
             </div>
         </div>
 
-        <div className="flex flex-col justify-center items-center py-8">
+        <div className="flex flex-col justify-center items-center">
 
-            <div className="flex flex-col justify-center items-center min-h-screen bg-gray-900 text-gray-100">
+            <div className="flex flex-col justify-center items-center min-h-screen bg-[#09090b] text-[#fafafa]">
                 <form onSubmit={handleSubmit(editNote)}>
                   
                 <div className="flex gap-4">
             
-                  <div className="w-[600px] h-[400px] rounded-md bg-gray-800 p-6 focus:outline-none flex flex-col gap-4 shadow-lg">
+                  <div className="w-[700px] h-[500px] rounded-lg border-[1.5px] border-[#27272a] bg-[#09090b] p-6 focus:outline-none flex flex-col gap-4 shadow-lg">
                     <div className="text-3xl font-semibold">
                       <input
                         type="text"
                         placeholder="Title"
-                        className="bg-transparent focus:outline-none placeholder-gray-400 w-full"
+                        className="bg-transparent focus:outline-none placeholder-[#bbbbbb] w-full"
                         {...register("title", { required: true })}
                         />
-                      <div className="border-b-2 border-gray-500 mt-2"></div>
+                      <div className="border-b-[1.5px] border-[#27272a] mt-2"></div>
                     </div>
                     <textarea
                       placeholder="Type here..."
-                      className="bg-transparent focus:outline-none placeholder-gray-400 w-full h-full resize-none"
+                      className="bg-transparent focus:outline-none placeholder-[#bbbbbb] w-full h-full resize-none"
                       {...register("content", { required: true })}
                       />
                   </div>
             
-                  <div className="w-[500px] h-[400px] rounded-md bg-gray-800 p-6 shadow-lg overflow-y-auto">
+                  <div className="w-[550px] h-[500px] rounded-lg border-[1.5px] border-[#27272a] bg-[#09090b] p-6 shadow-lg overflow-y-auto">
                     
-                    {title ? <div className="text-3xl font-semibold mb-4">{title}</div> : <div className='text-center text-gray-400'>Preview</div>}
+                    {title ? <div className="text-3xl font-semibold mb-4 text-[#fafafa]">{title}</div> : <div className='text-center text-[#bbbbbb]'>Preview</div>}
             
-                    <div className="markdown-body bg-transparent">
+                    <div className="markdown-body bg-transparent text-[#fafafa]">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
                     </div>
             
@@ -145,10 +145,10 @@ const EditNote = () => {
                 </div>
             
                 <div className="p-4">
-                  <button className="bg-violet-500 hover:bg-violet-600 text-black font-semibold px-6 py-2 rounded-md border-2 border-black shadow-md transition-all hover:transition-all">
-                    Edit Note
+                  <button className="bg-[#fafafa] hover:bg-[#e1e1e1] text-black font-semibold px-6 py-2 rounded-md border-2 border-black shadow-md transition-all hover:transition-all">
+                    Save Changes
                   </button>
-                <button type="button" onClick={deleteNote} className="bg-red-600 hover:bg-red-700 text-black font-semibold px-6 py-2 rounded-md border-2 border-black shadow-md transition-all hover:transition-all">
+                <button type="button" onClick={deleteNote} className="ml-4 bg-red-600 hover:bg-red-700 text-black font-semibold px-6 py-2 rounded-md border-2 border-black shadow-md transition-all hover:transition-all">
                     Delete Note
                 </button>
                 </div>

@@ -10,7 +10,7 @@ function Sidebar({$id,title}) {
                 <p>All Notes</p>
             </div> */}
             <div className='flex flex-col w-[180px]'>
-              <Link to={`/edit-note/${$id}`} className={`text-[#9ca3af] p-1 my-2 hover:rounded-md hover:cursor-pointer hover:bg-[#1f2937] w-full`}>
+              <Link to={`/edit-note/${$id}`} className={`text-[#fafafa] p-1 pl-2 my-2 hover:rounded-md hover:cursor-pointer hover:bg-[#27272a] w-full`}>
                 {title}
               </Link>
             </div>

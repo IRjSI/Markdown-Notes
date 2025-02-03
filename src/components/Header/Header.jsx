@@ -14,18 +14,22 @@ function Header() {
   // }, [status]);
 
   return (
-    <div>
-        <header className='p-4'>
-          <nav className="bg-gray-800 p-4 rounded-md flex justify-between items-center backdrop-blur-md text-white">
-          <Link to="/">Home</Link>
-          {!status ? (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </>
-          ) : (
-            <Logout />
-          )}
+    <div className='sticky top-0'>
+        <header className='border-b-[1.5px] border-[#27272a]'>
+          <nav className="p-4 rounded-md flex justify-between items-center backdrop-blur-md text-[#fafafa]">
+            <div>
+              <Link to="/">Home</Link>
+            </div>
+            <div>
+              {!status ? (
+                <>
+                  <Link to="/login" className='mx-4'>Login</Link>
+                  <Link to="/signup" className='mx-4'>Signup</Link>
+                </>
+              ) : (
+                <Logout />
+              )}
+          </div>
         </nav>
         </header>
     </div>

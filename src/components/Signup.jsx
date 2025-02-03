@@ -4,6 +4,7 @@ import authService from '../appwrite/auth';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {login} from '../store/authSlice'
+import { Link } from 'react-router-dom';
 
 function Signup() {
   const { register, handleSubmit } = useForm();
@@ -25,7 +26,11 @@ function Signup() {
  
   return (
     <div className='flex items-center justify-center w-full py-4'>
-      <div className='bg-gray-500 bg-opacity-40 w-72 p-4 rounded-lg'>
+      <div className='bg-transparent border-[1.5px] border-[#27272a] w-72 p-4 rounded-lg'>
+
+        <div className='text-center'>
+            Already have an Account?<Link to='/login' className='text-blue-500'>Log In</Link>
+        </div>
 
         <form onSubmit={handleSubmit(signup)} className='mt-8'>
           <div className='space-y-5 flex flex-col'>
@@ -33,7 +38,7 @@ function Signup() {
               label="Name: "
               placeholder="Enter your name"
               type="text"
-              className='p-2 rounded-sm bg-opacity-50 bg-gray-500 text-white focus:outline-none'
+              className='p-2 rounded-sm bg-transparent border-[1.5px] border-[#27272a] text-[#fafafa] focus:outline-none placeholder-[#a1a1aa]'
               {...register("name", {
                 required: true,
               })}
@@ -42,7 +47,7 @@ function Signup() {
               label="Email: "
               placeholder="Enter your email"
               type="email"
-              className='p-2 rounded-sm bg-opacity-50 bg-gray-500 text-white focus:outline-none'
+              className='p-2 rounded-sm bg-transparent border-[1.5px] border-[#27272a] text-[#fafafa] focus:outline-none placeholder-[#a1a1aa]'
               {...register("email", {
                 required: true,
                 validate: {
@@ -55,14 +60,14 @@ function Signup() {
               label="Password: "
               type="password"
               placeholder="Enter your password"
-              className='p-2 rounded-sm bg-opacity-50 bg-gray-500 text-white focus:outline-none'
+              className='p-2 rounded-sm bg-transparent border-[1.5px] border-[#27272a] text-[#fafafa] focus:outline-none placeholder-[#a1a1aa]'
               {...register("password", {
                 required: true,
               })}
               />
               <button
               type="submit"
-              className="w-full bg-violet-500 p-2"
+              className="w-full bg-[#fafafa] text-black rounded-md p-2"
               >Sign Up</button>
           </div>
         </form>

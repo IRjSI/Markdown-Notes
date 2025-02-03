@@ -27,7 +27,13 @@ export class AuthService {
             throw error;
         }
     }
-
+    async googleLogin() {
+        try {
+            return await this.account.createOAuth2Session('google', 'http://localhost:3000', 'http://localhost:3000');
+        } catch (error) {
+            throw error;
+        }
+    }
     async login({email, password}) {
         try {
             return await this.account.createEmailPasswordSession(email, password);
