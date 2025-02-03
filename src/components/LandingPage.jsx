@@ -19,16 +19,16 @@ function LandingPage() {
       </p>
 
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl w-full text-gray-800">
-        <div className="p-4 bg-white shadow-md rounded-xl">
+        <div className="p-4 bg-white shadow-md rounded-xl hover:bg-[#f0f0f0] cursor-pointer">
           📝 <strong>Rich Markdown Editing:</strong> Write with simplicity, format with power.
         </div>
-        <div className="p-4 bg-white shadow-md rounded-xl">
+        <div className="p-4 bg-white shadow-md rounded-xl hover:bg-[#f0f0f0] cursor-pointer">
           🌙 <strong>Distraction-Free Mode:</strong> Stay focused with a clean, minimal design.
         </div>
-        <div className="p-4 bg-white shadow-md rounded-xl">
+        <div className="p-4 bg-white shadow-md rounded-xl hover:bg-[#f0f0f0] cursor-pointer">
             🔒 <strong>Secure Notes:</strong> Keep your thoughts private with end-to-end encryption for maximum security.
         </div>
-        <div className="p-4 bg-white shadow-md rounded-xl">
+        <div className="p-4 bg-white shadow-md rounded-xl hover:bg-[#f0f0f0] cursor-pointer">
           ☁️ <strong>Sync & Access Anywhere:</strong> Keep your notes with you, anytime, anywhere.
         </div>
       </div>
