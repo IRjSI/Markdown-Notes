@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import Sidebar from './Sidebar';
 import LandingPage from './LandingPage';
 import { FaBars, FaTimes } from 'react-icons/fa'; 
+import ContextMenu from './ContextMenu';
 
 function Home() {
   const { status, userData } = useSelector((state) => state.auth);
@@ -113,7 +114,6 @@ function Home() {
           onClick={toggleSidebar}
         ></div>
       )}
-
       <div className="flex-1 p-4">
         <form onSubmit={handleSubmit(addNote)} className="flex flex-col gap-4">
           <div className="flex flex-col md:flex-row gap-4">

@@ -112,7 +112,7 @@ const EditNote = () => {
       <div
         className={`fixed md:relative inset-y-0 left-0 w-64 bg-[#09090b] transform ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:translate-x-0 transition-transform duration-300 ease-in-out z-50 md:border-e-[1.5px] md:border-[#27272a] p-4`}
+        } md:translate-x-0 transition-transform duration-300 ease-in-out z-50 sm:z-10 md:border-e-[1.5px] md:border-[#27272a] p-4`}
       >
         <div className='mb-4'>
           <Link to={`/`} className="block mb-4">
