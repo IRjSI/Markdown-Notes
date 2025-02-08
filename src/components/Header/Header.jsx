@@ -14,7 +14,7 @@ function Header() {
               <Link to="/">Home</Link>
             </div>
             <div>
-              <Link to="/" className='text-blue-500'>NoteNest</Link>
+              <Link to="/" className='text-blue-500'>NoteCove</Link>
             </div>
             <div>
               {!status ? (
