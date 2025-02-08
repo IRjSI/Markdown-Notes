@@ -5,20 +5,16 @@ import { useSelector } from 'react-redux'
 
 function Header() {
   const { status } = useSelector((state) => (state.auth));
-  // console.log(status);
-  
-  // const [isLoggedIn, setIsLoggedIn] = useState(status);
-
-  // useEffect(() => {
-  //   setIsLoggedIn(status); // Update local state when Redux state changes
-  // }, [status]);
 
   return (
-    <div className='sticky top-0'>
+    <div className='sticky top-0 z-50'>
         <header className='border-b-[1.5px] border-[#27272a]'>
           <nav className="p-4 rounded-md flex justify-between items-center backdrop-blur-md text-[#fafafa]">
             <div>
               <Link to="/">Home</Link>
+            </div>
+            <div>
+              <Link to="/" className='text-blue-500'>NoteDown</Link>
             </div>
             <div>
               {!status ? (

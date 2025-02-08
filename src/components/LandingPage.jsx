@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function LandingPage() {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-[#09090b] p-8">
+    <div className="flex flex-col justify-center items-center min-h-screen px-6 bg-[#09090b]">
       <h1 className="text-5xl font-extrabold text-center bg-gradient-to-t from-[#27272a] via-[#ffffff] to-[#fafafa] bg-clip-text text-transparent">
         Capture. Organize. Focus.
       </h1>
@@ -33,8 +33,12 @@ function LandingPage() {
         </div>
       </div>
 
-      <Link to='/login' className="mt-10 px-6 py-3 text-lg rounded-xl bg-gradient-to-r from-[#d8d8d8] to-[#fafafa] text-black hover:from-[#fafafa] hover:to-[#d8d8d8] transition duration-300">
-        Get Started
+      <Link to='/login' className="mt-6">
+        
+        <button className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#d8d8d8,45%,#f8f8f8,55%,#f8f8f8)] bg-[length:200%_100%] px-6 font-medium text-black transition-colors focus:outline-none ">
+          Get Started
+        </button>
+      
       </Link>
     </div>
   );
