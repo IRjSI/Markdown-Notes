@@ -10,12 +10,14 @@ import { ID } from 'appwrite';
 import { useSelector } from 'react-redux';
 import Sidebar from './Sidebar';
 import LandingPage from './LandingPage';
-import { FaBars, FaTimes } from 'react-icons/fa'; 
-import ContextMenu from './ContextMenu';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 function Home() {
   const { status, userData } = useSelector((state) => state.auth);
   const id = userData?.userData?.$id;
+  console.log(id);
+  
+  
   const [isDisabled, setIsDisabled] = useState(false);
   const [btnText, setBtnText] = useState('Add Note');
   const [notes, setNotes] = useState([]);
@@ -92,6 +94,9 @@ function Home() {
         <div className='mb-4'>
           <Link to={`/`} className="block mb-4">
             All Notes
+          </Link>
+          <Link to={`/edit-note/87654242424`} className={`text-[#fafafa] p-1 pl-2 hover:rounded-md hover:cursor-pointer hover:bg-[#27272a] w-full truncate`}>
+            Sample Note
           </Link>
           {notes.map((note) =>
             note.userID === id ? (

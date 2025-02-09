@@ -118,6 +118,9 @@ const EditNote = () => {
           <Link to={`/`} className="block mb-4">
             All Notes
           </Link>
+          <Link to={`/edit-note/87654242424`} className={`text-[#fafafa] p-1 pl-2 hover:rounded-md hover:cursor-pointer hover:bg-[#27272a] w-full truncate`}>
+            Sample Note
+          </Link>
           {notes.map((note) =>
             note.userID === userData?.userData?.$id ? (
               <div key={note.$id} className='p-2'>
