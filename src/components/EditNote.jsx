@@ -12,14 +12,16 @@ import Login from "./Login";
 import { FaBars, FaTimes } from 'react-icons/fa'; 
 
 const EditNote = () => {
+  const { status, userData } = useSelector((state) => state.auth);
+
   const [note, setNote] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { status, userData } = useSelector((state) => state.auth);
   const [notes, setNotes] = useState([]);
   const [saveTxt, setSaveTxt] = useState('Save Changes');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { slug } = useParams();
   const navigate = useNavigate();
+
   const { register, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
       title: '',
@@ -28,6 +30,8 @@ const EditNote = () => {
   });
   let content = watch('content', note?.content || '');
   let title = watch('title', note?.title || '');
+
+  const id = userData?.userData?.$id;
 
   useEffect(() => {
     const allNotes = async () => {
@@ -44,7 +48,7 @@ const EditNote = () => {
     };
 
     if (status) allNotes();
-  }, [status]);
+  }, []);
 
   useEffect(() => {
     if (slug) {
@@ -122,7 +126,7 @@ const EditNote = () => {
             Sample Note
           </Link>
           {notes.map((note) =>
-            note.userID === userData?.userData?.$id ? (
+            note.userID === id ? (
               <div key={note.$id} className='p-2'>
                 <Sidebar {...note} />
               </div>

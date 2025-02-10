@@ -18,18 +18,20 @@ function Login() {
         }
     };
     
+    // In your Login component
     const login = async (data) => {
         try {
             const session = await authService.login(data)
             if (session) {
                 const userData = await authService.getCurrentUser();
-                if (userData) dispatch(authLogin(userData));
+                if (userData) {
+                    dispatch(authLogin(userData));
+                }
                 navigate('/');
             }
         } catch (error) {
             console.log('login error::', error);
         }
-
     }
 
     return (

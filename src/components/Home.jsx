@@ -14,7 +14,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 
 function Home() {
   const { status, userData } = useSelector((state) => state.auth);
-  const id = userData?.userData?.$id;
+  const id = userData?.$id;
   console.log(id);
   
   
@@ -43,7 +43,7 @@ function Home() {
     };
 
     if (status) allNotes();
-  }, [status]);
+  }, []);
 
   if (!status) {
     return <LandingPage />; 
@@ -60,7 +60,7 @@ function Home() {
   const addNote = async (data) => {
     try {
       data.slug = String(ID.unique());
-      const response = await appwriteService.createNote({ ...data, userID: id });
+      const response = await appwriteService.createNote({ ...data, userID: id});
       if (response) {
         setNotes((prevNotes) => [...prevNotes, response]);
         setIsDisabled(true);

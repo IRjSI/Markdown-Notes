@@ -14,7 +14,7 @@ function App() {
     authService.getCurrentUser()
     .then((userData) => {
       if (userData) {
-        dispatch(login({userData})) // if user found
+        dispatch(login(userData)) // if user found
       } else {
         dispatch(logout()) // if not found
       }
