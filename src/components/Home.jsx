@@ -43,7 +43,7 @@ function Home() {
     };
 
     if (status) allNotes();
-  }, []);
+  }, [status]);
 
   if (!status) {
     return <LandingPage />; 
@@ -89,15 +89,15 @@ function Home() {
       <div
         className={`fixed md:relative inset-y-0 left-0 w-48 bg-[#09090b] transform ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:translate-x-0 transition-transform duration-300 ease-in-out z-50 sm:z-10  md:border-e-[1.5px] md:border-[#27272a] p-4`}
+        } md:translate-x-0 transition-transform duration-300 ease-in-out z-50 sm:z-10 md:border-e-[1.5px] md:border-[#27272a] p-4`}
       >
         <div className='mb-4'>
           <Link to={`/`} className="block mb-4">
             All Notes
           </Link>
-          <Link to={`/edit-note/87654242424`} className={`text-[#fafafa] p-1 pl-2 hover:rounded-md hover:cursor-pointer hover:bg-[#27272a] w-full truncate`}>
+          {/* <Link to={`/edit-note/87654242424`} className={`text-[#fafafa] p-1 pl-2 hover:rounded-md hover:cursor-pointer hover:bg-blue-500 w-full truncate`}>
             Sample Note
-          </Link>
+          </Link> */}
           {notes.map((note) =>
             note.userID === id ? (
               <div key={note.$id} className='p-2'>
