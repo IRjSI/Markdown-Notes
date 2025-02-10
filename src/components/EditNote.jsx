@@ -8,6 +8,7 @@ import './markdown.css';
 import { useForm } from "react-hook-form";
 import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
+import Login from "./Login";
 
 const EditNote = () => {
     const [note, setNote] = useState(null);
@@ -24,6 +25,8 @@ const EditNote = () => {
     });
     let content = watch('content',note?.content || '');
     let title = watch('title',note?.title || '');
+    const id = userData?.userData?.$id;
+    const id2 = userData?.$id;
 
     useEffect(() => {
         const allNotes = async () => {
@@ -97,7 +100,7 @@ const EditNote = () => {
               All Notes
             </Link>
             {notes.map((note) => (
-              note.userID === userData?.userData?.$id ? <div key={note.$id} className='p-2 w-48'>
+              note.userID === id || id2 ? <div key={note.$id} className='p-2 w-48'>
                 <Sidebar {...note} />
               </div> : null
             ))}

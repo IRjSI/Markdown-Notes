@@ -33,9 +33,10 @@ function LandingPage() {
         </div>
       </div>
 
-      <Link to='/login' className="mt-10 px-6 py-3 text-lg rounded-xl bg-gradient-to-r from-[#d8d8d8] to-[#fafafa] text-black hover:from-[#fafafa] hover:to-[#d8d8d8] transition duration-300">
+      <Link to='/signup' className="mt-10 px-6 py-3 text-lg rounded-xl bg-gradient-to-r from-[#d8d8d8] to-[#fafafa] text-black hover:from-[#fafafa] hover:to-[#d8d8d8] transition duration-300">
         Get Started
       </Link>
+      <div className='mt-24 w-3/4 h-3 bg-violet-600 rounded-se-full rounded-ss-full blur-3xl'></div>
     </div>
   );
 }

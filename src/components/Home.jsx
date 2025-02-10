@@ -16,6 +16,7 @@ function Home() {
   
   const { status, userData } = useSelector((state) => state.auth);
   const id = userData?.userData?.$id;
+  const id2 = userData?.$id;
   
   const { register, handleSubmit, watch } = useForm();
   
@@ -29,7 +30,6 @@ function Home() {
     const allNotes = async () => {
       try {
         const response = await appwriteService.getNotes([]);
-        // console.log(status);
         
         if (response) {
           setNotes(response.documents);
@@ -59,7 +59,7 @@ function Home() {
   const addNote = async (data) => {
     try {
       data.slug = String(ID.unique());
-      const response = await appwriteService.createNote({ ...data, userID:id });
+      const response = await appwriteService.createNote({ ...data, userID:id || id2 });
       if (response) setNotes((prevNotes) => [...prevNotes, response])
     } catch (error) {
       console.log("addNote::error::",error);
@@ -75,7 +75,7 @@ function Home() {
             All Notes
           </Link>
           {notes.map((note) =>
-            note.userID === id ? (
+            note.userID === id || id2 ? (
               <div key={note.$id} className='p-2 w-48'>
                 <Sidebar {...note} />
               </div>
@@ -89,7 +89,7 @@ function Home() {
         </div>
       </div>
 
-    <div className="flex flex-col justify-center items-center min-h-screen bg-[#09090b] text-[#fafafa]">
+    <div className="flex flex-col justify-center items-center max-h-screen bg-[#09090b] mt-12 text-[#fafafa]">
     <form onSubmit={handleSubmit(addNote)}>
       
     <div className="flex gap-4">
