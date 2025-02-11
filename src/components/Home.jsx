@@ -16,7 +16,6 @@ import Loader from './Loader';
 function Home() {
   const { status, userData } = useSelector((state) => state.auth);
   const id = userData?.$id;
-  console.log(id);
   
   
   const [isDisabled, setIsDisabled] = useState(false);
