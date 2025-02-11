@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "github-markdown-css";
@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import Sidebar from './Sidebar';
 import LandingPage from './LandingPage';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import Loader from './Loader';
 
 function Home() {
   const { status, userData } = useSelector((state) => state.auth);
@@ -23,6 +24,8 @@ function Home() {
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
+
+  const navigate = useNavigate();
 
   const { register, handleSubmit, watch } = useForm();
   const content = watch('content', '');
@@ -51,8 +54,8 @@ function Home() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#fafafa]"></div>
+      <div className='flex justify-center items-center h-screen'>
+        <Loader />
       </div>
     );
   }

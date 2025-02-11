@@ -10,6 +10,7 @@ import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
 import Login from "./Login";
 import { FaBars, FaTimes } from 'react-icons/fa'; 
+import Loader from "./Loader";
 
 const EditNote = () => {
   const { status, userData } = useSelector((state) => state.auth);
@@ -68,8 +69,8 @@ const EditNote = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#fafafa]"></div>
+      <div className='flex justify-center items-center h-screen'>
+        <Loader />
       </div>
     );
   }
