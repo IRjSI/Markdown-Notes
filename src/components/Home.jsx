@@ -17,25 +17,25 @@ function Home() {
   const { status, userData } = useSelector((state) => state.auth);
   const id = userData?.$id;
   
-  
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [btnText, setBtnText] = useState('Add Note');
+  // const [isDisabled, setIsDisabled] = useState(false);
+  // const [btnText, setBtnText] = useState('Add Note');
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit, watch, reset } = useForm();
   const content = watch('content', '');
   const title = watch('title', '');
 
   useEffect(() => {
     const allNotes = async () => {
       try {
-        const response = await appwriteService.getNotes([]);
+        const response = await appwriteService.getNotes([],100);
         if (response) {
-          setNotes(response.documents);
+          const myNotes = response.documents.filter(note => note.userID === id);
+          setNotes(myNotes);
         }
       } catch (error) {
         console.error("Failed to fetch notes:", error);
@@ -65,8 +65,13 @@ function Home() {
       const response = await appwriteService.createNote({ ...data, userID: id});
       if (response) {
         setNotes((prevNotes) => [...prevNotes, response]);
-        setIsDisabled(true);
-        setBtnText('Added!');
+        // setIsDisabled(true);
+        // setBtnText('Added!');
+        reset({
+          title: '',
+          content: ''
+        });
+        
       }
     } catch (error) {
       console.log("addNote::error::", error);
@@ -101,11 +106,11 @@ function Home() {
             Sample Note
           </Link> */}
           {notes.map((note) =>
-            note.userID === id ? (
+            (
               <div key={note.$id} className='p-2'>
                 <Sidebar {...note} />
               </div>
-            ) : null
+            )
           )}
           <div className='p-2'>
             <Link to={`/`} className="text-[#bbbbbb] p-3 my-4 hover:rounded-md hover:cursor-pointer hover:bg-[#27272a] w-full block">
@@ -156,12 +161,10 @@ function Home() {
 
           <div className="p-4">
             <button
-              disabled={isDisabled}
-              className={`bg-[#fafafa] hover:bg-[#e1e1e1] text-black font-semibold px-6 py-2 rounded-md border-2 border-black shadow-md transition-all hover:transition-all ${
-                isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'
-              }`}
+              // disabled={isDisabled}
+              className={`bg-[#fafafa] hover:bg-[#e1e1e1] text-black font-semibold px-6 py-2 rounded-md border-2 border-black shadow-md transition-all hover:transition-all `}
             >
-              {btnText}
+              Add Note
             </button>
           </div>
         </form>

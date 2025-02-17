@@ -83,10 +83,10 @@ export class Service{
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseID,
                 conf.appwriteCollectionID,
-                queries,
+                [Query.limit(100), ...queries]
             )
         } catch (error) {
-            console.log("Appwrite serive :: getPosts :: error", error);
+            console.log("Appwrite service :: getPosts :: error", error);
             return false
         }
     }

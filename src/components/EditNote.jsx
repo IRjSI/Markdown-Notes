@@ -127,11 +127,11 @@ const EditNote = () => {
             Sample Note
           </Link> */}
           {notes.map((note) =>
-            note.userID === id ? (
+            (
               <div key={note.$id} className='p-2'>
                 <Sidebar {...note} />
               </div>
-            ) : null
+            )
           )}
           <div className='p-2'>
             <Link to={`/`} className="text-[#bbbbbb] p-3 my-4 hover:rounded-md hover:cursor-pointer hover:bg-[#27272a] w-full block">
